@@ -1,5 +1,4 @@
 # Java Fx and JDBC Project
-
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/amac81/javafx_jdbc_01/blob/main/LICENSE)
 
 # About the project
