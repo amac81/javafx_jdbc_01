@@ -3,18 +3,19 @@ package model.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Department implements Serializable {
+public class Seller implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
 	private String name;
+	private String email;
+	
+	public Seller() {}
 
-	public Department() {
-	}
-
-	public Department(Integer id, String name) {
+	public Seller(Integer id, String name, String email) {
 		this.id = id;
 		this.name = name;
+		this.email = email;
 	}
 
 	public Integer getId() {
@@ -33,6 +34,14 @@ public class Department implements Serializable {
 		this.name = name;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -46,8 +55,11 @@ public class Department implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Department other = (Department) obj;
+		Seller other = (Seller) obj;
 		return Objects.equals(id, other.id);
 	}
+	
+	
+	
 
 }
