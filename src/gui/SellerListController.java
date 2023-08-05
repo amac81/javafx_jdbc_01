@@ -1,19 +1,23 @@
 package gui;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import model.entities.Seller;
 import model.services.SellerService;
 
@@ -32,7 +36,13 @@ public class SellerListController implements Initializable {
 	
 	@FXML
 	private TableColumn<Seller, String> tableColumnEmail;
-
+	
+	@FXML
+	private TableColumn<Seller, Date> tableColumnBirthDate;
+	
+	@FXML
+	private TableColumn<Seller, Double> tableColumnBaseSalary;
+	
 	@FXML
 	private Button btNew;
 	
@@ -50,6 +60,8 @@ public class SellerListController implements Initializable {
 	@Override
 	public void initialize(URL uri, ResourceBundle rb) {
 		initializeNodes();
+		
+		
 	}
 
 	private void initializeNodes() {
@@ -57,6 +69,29 @@ public class SellerListController implements Initializable {
 		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
 		
+		tableColumnBirthDate.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
+		tableColumnBaseSalary.setCellValueFactory(new PropertyValueFactory<>("baseSalary"));
+		
+		TableColumn<Seller,String> departmentNameCol = new TableColumn<Seller,String>("Department Name");
+		departmentNameCol.setCellValueFactory(new Callback<CellDataFeatures<Seller, String>, ObservableValue<String>>() {
+		     public ObservableValue<String> call(CellDataFeatures<Seller, String> p) {
+		         // p.getValue() returns the Person instance for a particular TableView row
+		        
+		    	 System.out.println("#######" + p.getValue().getDepartment().getDepartmentName());
+		    	 
+		    	 return p.getValue().getDepartment().getDepartmentName();
+		         
+		         
+		     }
+		  });
+		 
+		 tableViewSeller.getColumns().add(departmentNameCol);
+
+		
+		
+		//tableColumnDepartment.setCellValueFactory(new PropertyValueFactory<>("department"));
+		
+	
 		Stage stage  = (Stage) Main.getMainScene().getWindow();
 		tableViewSeller.prefHeightProperty().bind(stage.heightProperty());
 		

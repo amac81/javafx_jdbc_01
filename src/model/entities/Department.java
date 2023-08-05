@@ -2,9 +2,15 @@ package model.entities;
 
 import java.io.Serializable;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Department implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+    private final StringProperty departmentName = new SimpleStringProperty();
+
 
 	private Integer id;
 	private String name;
@@ -31,6 +37,19 @@ public class Department implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+		setDepartmentName(name);
+	}
+
+	public StringProperty departmentNameProperty() {
+        return departmentName ;
+    }
+	
+	public final void setDepartmentName(String name) {
+		departmentNameProperty().set(name);
+    }
+	
+	public StringProperty getDepartmentName() {
+		return departmentName;
 	}
 
 	@Override
