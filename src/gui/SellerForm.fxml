@@ -44,6 +44,7 @@
             <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Label GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Label GridPane.columnIndex="2" GridPane.rowIndex="4" />
