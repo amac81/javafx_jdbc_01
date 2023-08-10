@@ -23,15 +23,15 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Id" />
+            <Label fx:id="labelId" text="Id" />
             <Label text="Name" GridPane.rowIndex="1" />
-            <TextField fx:id="textFieldId" editable="false" GridPane.columnIndex="1" />
+            <TextField fx:id="textFieldId" editable="false" style="-fx-text-inner-color: #0400EA; -fx-background-color: #B2B2B2;" GridPane.columnIndex="1" />
             <TextField fx:id="textFieldName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="labelErrorName" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                   <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Save" />
-                  <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Cancel" />
+                  <Button fx:id="btClose" mnemonicParsing="false" onAction="#onBtCloseAction" text="Close" />
                </children>
             </HBox>
          </children>
