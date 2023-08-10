@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,9 +27,9 @@ import javafx.stage.Stage;
 import model.entities.Department;
 import model.services.DepartmentService;
 
-public class DepartmentListController implements Initializable {
+public class DepartmentListController implements Initializable, DataChangeListener {
 	
-	private DepartmentService departmentService;
+	private DepartmentService service;
 	
 	@FXML
 	private TableView<Department> tableViewDepartment;
@@ -45,7 +46,7 @@ public class DepartmentListController implements Initializable {
 	private ObservableList<Department> departmentsObservableList;
 
 	public void setDepartmentService(DepartmentService service) {
-		this.departmentService = service;
+		this.service = service;
 	}
 		
 	@FXML
@@ -70,11 +71,11 @@ public class DepartmentListController implements Initializable {
 	}
 	
 	public void updateTableView() {
-		if (departmentService == null) {
+		if (service == null) {
 			throw new IllegalStateException("Service was null!");
 		}
 		
-		List <Department> list = departmentService.findAll();
+		List <Department> list = service.findAll();
 		departmentsObservableList = FXCollections.observableArrayList(list);
 		
 		tableViewDepartment.setItems(departmentsObservableList);
@@ -88,6 +89,9 @@ public class DepartmentListController implements Initializable {
 			DepartmentFormController controller = loader.getController();
 			controller.setDepartment(department);
 			controller.setDepartmentService(new DepartmentService());
+			//subscribe DataChangeListener events
+			controller.subscribeDataChangeListener(this);
+			
 			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
@@ -101,6 +105,12 @@ public class DepartmentListController implements Initializable {
 		catch(IOException e) {
 			Alerts.showAlert("IOException", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
+	}
+
+	@Override
+	public void onDataChanged() {
+		// we need to update TableView
+		updateTableView();		
 	}
 	
 }

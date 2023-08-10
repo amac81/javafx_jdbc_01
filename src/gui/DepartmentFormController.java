@@ -1,9 +1,12 @@
 package gui;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import db.DbException;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
@@ -20,7 +23,8 @@ import model.services.DepartmentService;
 public class DepartmentFormController implements Initializable {
 
 	private Department entity;
-	private DepartmentService departmentService;
+	private DepartmentService service;
+	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
 	@FXML
 	private TextField textFieldId;
@@ -41,34 +45,49 @@ public class DepartmentFormController implements Initializable {
 		this.entity = entity;
 	}
 
-	public void setDepartmentService(DepartmentService departmentService) {
-		this.departmentService = departmentService;
+	public void setDepartmentService(DepartmentService service) {
+		this.service = service;
 	}
-	
+
+	public void subscribeDataChangeListener(DataChangeListener listener) {
+		// other objects, as long as they implement the DataChangeListener interface,
+		// can "subscribe" to receive events from my class
+		dataChangeListeners.add(listener);
+	}
+
 	@FXML
 	public void onBtSaveAction(ActionEvent event) {
-		
-		//defensive programming, because we are not using framework for dependency injection
+
+		// defensive programming, because we are not using framework for dependency
+		// injection
 		if (entity == null) {
 			throw new IllegalStateException("Entity was null!");
 		}
-		
-		if (departmentService == null) {
+
+		if (service == null) {
 			throw new IllegalStateException("Service was null!");
 		}
 		try {
-			entity = getFormData();	
-			departmentService.saveOrUpdate(entity);
-			//close window
+			entity = getFormData();
+			service.saveOrUpdate(entity);
+			notifyDataChangeListeners();
+			// close window
 			Utils.currentStage(event).close();
-		}catch(DbException e) {
+		} catch (DbException e) {
 			Alerts.showAlert("Error saving object", null, e.getMessage(), AlertType.ERROR);
 		}
 	}
 
+	private void notifyDataChangeListeners() {
+		//notify all "subscribers"
+		for(DataChangeListener listener: dataChangeListeners) {
+			listener.onDataChanged();
+		}		
+	}
+
 	private Department getFormData() {
 		Department department = new Department();
-		
+
 		department.setId(Utils.tryParseToInt(textFieldId.getText()));
 		department.setName(textFieldName.getText());
 		return department;
@@ -88,7 +107,7 @@ public class DepartmentFormController implements Initializable {
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(textFieldId);
 		Constraints.setTextFieldMaxLength(textFieldName, 30);
-		
+
 	}
 
 	public void updateFormData() {
@@ -97,6 +116,6 @@ public class DepartmentFormController implements Initializable {
 		}
 		textFieldId.setText(String.valueOf(entity.getId()));
 		textFieldName.setText(entity.getName());
-		
+
 	}
 }

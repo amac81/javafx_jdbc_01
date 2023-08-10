@@ -32,7 +32,7 @@ import model.services.SellerService;
 
 public class SellerListController implements Initializable {
 	
-	private SellerService sellerService;
+	private SellerService service;
 	
 	@FXML
 	private TableView<Seller> tableViewSeller;
@@ -58,7 +58,7 @@ public class SellerListController implements Initializable {
 	private ObservableList<Seller> sellersObservableList;
 
 	public void setSellerService(SellerService service) {
-		this.sellerService = service;
+		this.service = service;
 	}
 		
 	@FXML
@@ -102,11 +102,11 @@ public class SellerListController implements Initializable {
 	}
 	
 	public void updateTableView() {
-		if (sellerService == null) {
+		if (service == null) {
 			throw new IllegalStateException("Service was null!");
 		}
 		
-		List <Seller> list = sellerService.findAll();
+		List <Seller> list = service.findAll();
 		sellersObservableList = FXCollections.observableArrayList(list);
 		
 		tableViewSeller.setItems(sellersObservableList);
