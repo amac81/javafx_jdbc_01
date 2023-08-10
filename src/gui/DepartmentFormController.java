@@ -127,8 +127,6 @@ public class DepartmentFormController implements Initializable {
 
 	@Override
 	public void initialize(URL uri, ResourceBundle rb) {
-		textFieldId.setVisible(false);
-		labelId.setVisible(false);
 		initializeNodes();
 	}
 
