@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="207.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="207.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SellerFormController">
    <children>
       <GridPane prefHeight="161.0" prefWidth="476.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
@@ -26,28 +26,28 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Id" />
+            <Label fx:id="labelId" text="Id" />
             <Label text="Name" GridPane.rowIndex="1" />
-            <TextField editable="false" GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="textFieldId" editable="false" style="-fx-text-inner-color: #0400EA; -fx-background-color: #B2B2B2;" GridPane.columnIndex="1" />
+            <TextField fx:id="textFieldName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label textFill="#ff4800" GridPane.columnIndex="2" />
             <Label textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <children>
-                  <Button mnemonicParsing="false" text="Save" />
-                  <Button mnemonicParsing="false" text="Cancel" />
+                  <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Save" />
+                  <Button fx:id="btClose" mnemonicParsing="false" onAction="#onBtCloseAction" text="Cancel" />
                </children>
             </HBox>
             <Label text="Email" GridPane.rowIndex="2" />
             <Label text="Birth Date" GridPane.rowIndex="3" />
             <Label text="Base Salary" GridPane.rowIndex="4" />
-            <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Label GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Label GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <TextField fx:id="textFieldEmail" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="textFieldBaseSalary" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="labelErrorName" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="labelErrorEmail" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label fx:id="labelErrorBirthDate" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label fx:id="labelErrorBaseSalary" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <TextField fx:id="textFieldBirthDate" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </children>

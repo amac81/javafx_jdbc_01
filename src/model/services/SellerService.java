@@ -8,10 +8,24 @@ import model.entities.Seller;
 
 public class SellerService {
 	
-	private SellerDao sellerDao = DaoFactory.createSellerDao();
+	private SellerDao SellerDao = DaoFactory.createSellerDao();
 	
 	public List<Seller> findAll(){	
-		return sellerDao.findAll();		
+		return SellerDao.findAll();		
 	}
 	
+	public void saveOrUpdate(Seller Seller) {
+		if(Seller.getId() == null) //new Seller
+		{
+			SellerDao.insert(Seller);
+		}
+		else
+		{
+			SellerDao.update(Seller);
+		}
+	}
+	
+	public void remove(Seller Seller) {
+		SellerDao.deleteById(Seller.getId());
+	}
 }	

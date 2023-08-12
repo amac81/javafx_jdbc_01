@@ -183,6 +183,5 @@ public class DepartmentListController implements Initializable, DataChangeListen
 				Alerts.showAlert("Error removing object", null, e.getMessage(), AlertType.ERROR);
 			}
 		}
-		
 	}
 }
