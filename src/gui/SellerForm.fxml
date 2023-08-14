@@ -41,13 +41,13 @@
             <Label text="Email" GridPane.rowIndex="2" />
             <Label text="Birth Date" GridPane.rowIndex="3" />
             <Label text="Base Salary" GridPane.rowIndex="4" />
-            <TextField fx:id="textFieldEmail" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="textFieldBaseSalary" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="textFieldEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="textFieldBaseSalary" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label fx:id="labelErrorName" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label fx:id="labelErrorEmail" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Label fx:id="labelErrorBirthDate" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Label fx:id="labelErrorBaseSalary" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <TextField fx:id="textFieldBirthDate" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="textFieldBirthDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </children>

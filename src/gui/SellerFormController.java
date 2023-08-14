@@ -1,6 +1,8 @@
 package gui;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,12 +21,14 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import model.entities.Department;
 import model.entities.Seller;
 import model.exceptions.ValidationException;
 import model.services.SellerService;
 
 public class SellerFormController implements Initializable {
 
+	private DateTimeFormatter dataFormat1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	private Seller entity;
 	private SellerService service;
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
@@ -117,6 +121,8 @@ public class SellerFormController implements Initializable {
 	}
 
 	private Seller getFormData() {
+		Department dep = entity.getDepartment();
+		
 		Seller seller = new Seller();
 
 		// textFieldName can't be empty
@@ -130,6 +136,11 @@ public class SellerFormController implements Initializable {
 		}
 
 		seller.setName(textFieldName.getText());
+		seller.setEmail(textFieldEmail.getText());
+		seller.setBirthDate(LocalDate.parse(textFieldBirthDate.getText(), dataFormat1));
+		seller.setBaseSalary(Double.parseDouble(textFieldBaseSalary.getText()));
+		
+		seller.setDepartment(dep);
 
 		if (exception.getErrors().size() > 0) {
 			throw exception;
@@ -163,7 +174,10 @@ public class SellerFormController implements Initializable {
 		textFieldName.setText(entity.getName());
 		
 		textFieldEmail.setText(entity.getEmail());
-		textFieldBirthDate.setText(entity.getBirthDate().toString());
+		if(entity.getBirthDate() != null) 
+		{
+			textFieldBirthDate.setText(entity.getBirthDate().toString());
+		}
 		textFieldBaseSalary.setText(String.valueOf(entity.getBaseSalary()));
 		
 	}

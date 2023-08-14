@@ -128,7 +128,6 @@ public class SellerListController implements Initializable, DataChangeListener {
 
 	private void createDialogForm(Seller seller, String absoluteName, Stage parentStage) {
 		
-		
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
