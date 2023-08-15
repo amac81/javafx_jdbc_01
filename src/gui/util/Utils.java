@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class Utils {
@@ -45,6 +46,25 @@ public class Utils {
 
 	public static <T> void formatTableColumnDouble(TableColumn<T, Double> tableColumn, Locale local) {
 		tableColumn.setCellFactory(column -> {
+			TableCell<T, Double> cell = new TableCell<T, Double>() {
+				@Override
+				protected void updateItem(Double item, boolean empty) {
+					super.updateItem(item, empty);
+					if (empty) {
+						setText(null);
+					} else {
+						Locale.setDefault(local);
+						NumberFormat nFormat = NumberFormat.getCurrencyInstance(local);
+						setText(String.format(nFormat.format(item)));
+					}
+				}
+			};
+			return cell;
+		});
+	}
+	
+	public static void formatTextFieldDouble(TextField field, Locale local) {
+		field..setCellFactory(column -> {
 			TableCell<T, Double> cell = new TableCell<T, Double>() {
 				@Override
 				protected void updateItem(Double item, boolean empty) {

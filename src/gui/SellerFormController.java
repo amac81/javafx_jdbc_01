@@ -28,7 +28,8 @@ import model.services.SellerService;
 
 public class SellerFormController implements Initializable {
 
-	private DateTimeFormatter dataFormat1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	private DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	private DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	private Seller entity;
 	private SellerService service;
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
@@ -137,7 +138,7 @@ public class SellerFormController implements Initializable {
 
 		seller.setName(textFieldName.getText());
 		seller.setEmail(textFieldEmail.getText());
-		seller.setBirthDate(LocalDate.parse(textFieldBirthDate.getText(), dataFormat1));
+		seller.setBirthDate(LocalDate.parse(textFieldBirthDate.getText(), dtf1));
 		seller.setBaseSalary(Double.parseDouble(textFieldBaseSalary.getText()));
 		
 		seller.setDepartment(dep);
@@ -175,11 +176,14 @@ public class SellerFormController implements Initializable {
 		
 		textFieldEmail.setText(entity.getEmail());
 		if(entity.getBirthDate() != null) 
-		{
-			textFieldBirthDate.setText(entity.getBirthDate().toString());
+		{		
+			String birthDate = dtf1.format(dtf2.parse(entity.getBirthDate().toString()));
+			textFieldBirthDate.setText(birthDate.toString());
+
 		}
-		textFieldBaseSalary.setText(String.valueOf(entity.getBaseSalary()));
+		textFieldBaseSalary.setTextFormatter(null);
 		
+		textFieldBaseSalary.setText(String.valueOf(entity.getBaseSalary()));	
 	}
 
 	private void setErrorMessages(Map<String, String> errors) {
