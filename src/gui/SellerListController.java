@@ -2,8 +2,9 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -53,7 +54,7 @@ public class SellerListController implements Initializable, DataChangeListener {
 	private TableColumn<Seller, String> tableColumnEmail;
 	
 	@FXML
-	private TableColumn<Seller, Date> tableColumnBirthDate;
+	private TableColumn<Seller, LocalDate> tableColumnBirthDate;
 	
 	@FXML
 	private TableColumn<Seller, Double> tableColumnBaseSalary;
@@ -91,16 +92,19 @@ public class SellerListController implements Initializable, DataChangeListener {
 		tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
 		
 		tableColumnBirthDate.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
-		tableColumnBaseSalary.setCellValueFactory(new PropertyValueFactory<>("baseSalary"));
+		Utils.formatTableColumnDate(tableColumnBirthDate, "dd/MM/YYYY");
 		
-		TableColumn<Seller,String> SellerNameCol = new TableColumn<Seller,String>("Seller Name");
-		SellerNameCol.setCellValueFactory(new Callback<CellDataFeatures<Seller, String>, ObservableValue<String>>() {
+		tableColumnBaseSalary.setCellValueFactory(new PropertyValueFactory<>("baseSalary"));
+		Utils.formatTableColumnDouble(tableColumnBaseSalary, new Locale("PT", "pt"));
+		
+		TableColumn<Seller,String> sellerNameCol = new TableColumn<Seller,String>("Department");
+		sellerNameCol.setCellValueFactory(new Callback<CellDataFeatures<Seller, String>, ObservableValue<String>>() {
 		     public ObservableValue<String> call(CellDataFeatures<Seller, String> p) {
 		     	 return p.getValue().getDepartment().getDepartmentName();
 		     }
 		  });
 		 
-		 tableViewSeller.getColumns().add(SellerNameCol);
+		 tableViewSeller.getColumns().add(sellerNameCol);
 
 		
 		
