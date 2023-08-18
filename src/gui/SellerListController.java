@@ -34,8 +34,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import model.entities.Department;
 import model.entities.Seller;
+import model.services.DepartmentService;
 import model.services.SellerService;
 
 public class SellerListController implements Initializable, DataChangeListener {
@@ -79,8 +79,10 @@ public class SellerListController implements Initializable, DataChangeListener {
 	public void onBtNewAction(ActionEvent event) {
 		Stage stage = Utils.currentStage(event);
 		Seller seller = new Seller();
-		Department department = new Department();
-		seller.setDepartment(department);
+		
+		//Department department = new Department();
+	//	seller.setDepartment(department);
+		
 		createDialogForm(seller, "/gui/SellerForm.fxml", stage);
 	}
 
@@ -107,12 +109,7 @@ public class SellerListController implements Initializable, DataChangeListener {
 		     }
 		  });
 		 
-		 tableViewSeller.getColumns().add(sellerNameCol);
-
-		
-		
-		//tableColumnSeller.setCellValueFactory(new PropertyValueFactory<>("Seller"));
-		
+		tableViewSeller.getColumns().add(sellerNameCol);		
 	
 		Stage stage  = (Stage) Main.getMainScene().getWindow();
 		tableViewSeller.prefHeightProperty().bind(stage.heightProperty());
@@ -139,10 +136,10 @@ public class SellerListController implements Initializable, DataChangeListener {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
 			
-			
 			SellerFormController controller = loader.getController();
 			controller.setSeller(seller);
-			controller.setSellerService(new SellerService());
+			controller.setServices(new SellerService(), new DepartmentService());
+			controller.loadAssociatedObjects();
 			// subscribe DataChangeListener events
 			controller.subscribeDataChangeListener(this);
 			
