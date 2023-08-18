@@ -2,7 +2,7 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -34,6 +34,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import model.entities.Department;
 import model.entities.Seller;
 import model.services.SellerService;
 
@@ -54,7 +55,7 @@ public class SellerListController implements Initializable, DataChangeListener {
 	private TableColumn<Seller, String> tableColumnEmail;
 	
 	@FXML
-	private TableColumn<Seller, LocalDate> tableColumnBirthDate;
+	private TableColumn<Seller, Date> tableColumnBirthDate;
 	
 	@FXML
 	private TableColumn<Seller, Double> tableColumnBaseSalary;
@@ -78,6 +79,8 @@ public class SellerListController implements Initializable, DataChangeListener {
 	public void onBtNewAction(ActionEvent event) {
 		Stage stage = Utils.currentStage(event);
 		Seller seller = new Seller();
+		Department department = new Department();
+		seller.setDepartment(department);
 		createDialogForm(seller, "/gui/SellerForm.fxml", stage);
 	}
 
@@ -143,7 +146,7 @@ public class SellerListController implements Initializable, DataChangeListener {
 			// subscribe DataChangeListener events
 			controller.subscribeDataChangeListener(this);
 			
-			controller.updateFormData();
+			controller.updateFormData(new Locale("PT", "pt"));
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Enter Seller Data");

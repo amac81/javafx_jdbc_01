@@ -2,9 +2,10 @@ package gui;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -19,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Department;
@@ -27,9 +29,6 @@ import model.exceptions.ValidationException;
 import model.services.SellerService;
 
 public class SellerFormController implements Initializable {
-
-	private DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	private DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	private Seller entity;
 	private SellerService service;
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
@@ -47,7 +46,7 @@ public class SellerFormController implements Initializable {
 	private TextField textFieldEmail;
 	
 	@FXML
-	private TextField textFieldBirthDate;
+	private DatePicker dpBirthDate;
 	
 	@FXML
 	private TextField textFieldBaseSalary;
@@ -138,7 +137,8 @@ public class SellerFormController implements Initializable {
 
 		seller.setName(textFieldName.getText());
 		seller.setEmail(textFieldEmail.getText());
-		seller.setBirthDate(LocalDate.parse(textFieldBirthDate.getText(), dtf1));
+		//seller.setBirthDate(LocalDate.parse(dpBirthDate.getText(), dtf1));
+		
 		seller.setBaseSalary(Double.parseDouble(textFieldBaseSalary.getText()));
 		
 		seller.setDepartment(dep);
@@ -162,11 +162,13 @@ public class SellerFormController implements Initializable {
 
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(textFieldId);
-		Constraints.setTextFieldMaxLength(textFieldName, 30);
 		Constraints.setTextFieldDouble(textFieldBaseSalary);
+		Constraints.setTextFieldMaxLength(textFieldName, 80);
+		Constraints.setTextFieldMaxLength(textFieldEmail, 60);
+		Utils.formatDatePicker(dpBirthDate, "dd/MM/yyyy");
 	}
 
-	public void updateFormData() {
+	public void updateFormData(Locale local) {
 		if (entity == null) {
 			throw new IllegalStateException("Entity was null!");
 		}
@@ -175,15 +177,12 @@ public class SellerFormController implements Initializable {
 		textFieldName.setText(entity.getName());
 		
 		textFieldEmail.setText(entity.getEmail());
-		if(entity.getBirthDate() != null) 
-		{		
-			String birthDate = dtf1.format(dtf2.parse(entity.getBirthDate().toString()));
-			textFieldBirthDate.setText(birthDate.toString());
-
-		}
-		textFieldBaseSalary.setTextFormatter(null);
 		
-		textFieldBaseSalary.setText(String.valueOf(entity.getBaseSalary()));	
+		Locale.setDefault(local);
+		
+		textFieldBaseSalary.setText(String.format("%.2f", entity.getBaseSalary()));	
+		
+		dpBirthDate.setValue(LocalDate.ofInstant(entity.getBirthDate().toInstant(), ZoneId.systemDefault()));
 	}
 
 	private void setErrorMessages(Map<String, String> errors) {
