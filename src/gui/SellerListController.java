@@ -80,9 +80,6 @@ public class SellerListController implements Initializable, DataChangeListener {
 		Stage stage = Utils.currentStage(event);
 		Seller seller = new Seller();
 		
-		//Department department = new Department();
-	//	seller.setDepartment(department);
-		
 		createDialogForm(seller, "/gui/SellerForm.fxml", stage);
 	}
 

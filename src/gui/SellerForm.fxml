@@ -33,6 +33,10 @@
             <Label text="Name" GridPane.rowIndex="1" />
             <TextField fx:id="textFieldId" editable="false" style="-fx-text-inner-color: #0400EA; -fx-background-color: #B2B2B2;" GridPane.columnIndex="1" />
             <TextField fx:id="textFieldName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="textFieldEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <DatePicker fx:id="dpBirthDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="textFieldBaseSalary" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="comboBoxDepartment" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label textFill="#ff4800" GridPane.columnIndex="2" />
             <Label textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
@@ -44,15 +48,11 @@
             <Label text="Email" GridPane.rowIndex="2" />
             <Label text="Birth Date" GridPane.rowIndex="3" />
             <Label text="Base Salary" GridPane.rowIndex="4" />
-            <TextField fx:id="textFieldEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label fx:id="labelErrorName" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label fx:id="labelErrorEmail" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Label fx:id="labelErrorBirthDate" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Label fx:id="labelErrorBaseSalary" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <DatePicker fx:id="dpBirthDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="Department" GridPane.rowIndex="5" />
-            <TextField fx:id="textFieldBaseSalary" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <ComboBox fx:id="comboBoxDepartment" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
    </children>
